@@ -1,0 +1,86 @@
+basePath: /v1
+definitions:
+  entity.Test:
+    properties:
+      test:
+        example: test
+        type: string
+    type: object
+  v1.addRequest:
+    properties:
+      test:
+        example: test
+        type: string
+    type: object
+  v1.eResponse:
+    properties:
+      error:
+        example: message
+        type: string
+    type: object
+  v1.historyResponse:
+    properties:
+      history:
+        items:
+          $ref: '#/definitions/entity.Test'
+        type: array
+    type: object
+  v1.sResponse:
+    properties:
+      success:
+        example: message
+        type: string
+    type: object
+info:
+  contact: {}
+  description: swagger test example
+  title: swagger test
+  version: "1.0"
+paths:
+  /test/add:
+    post:
+      consumes:
+      - application/json
+      description: add test history
+      operationId: add
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.addRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.sResponse'
+      summary: add history
+      tags:
+      - test
+  /test/history:
+    get:
+      consumes:
+      - application/json
+      description: Show all test history
+      operationId: history
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.historyResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.eResponse'
+      summary: Show history
+      tags:
+      - test
+schemes:
+- http
+- https
+swagger: "2.0"
